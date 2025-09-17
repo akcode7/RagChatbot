@@ -2,16 +2,23 @@
 # Imports & API Key Setup
 # ---------------------------
 import os
-from dotenv import load_dotenv
 import streamlit as st
 from typing import Tuple, List, Any
 
-# Load environment variables from .env
-load_dotenv()
+# Set Groq API key from Streamlit secrets or environment
+try:
+    # Try Streamlit secrets first (for Streamlit Cloud)
+    api_key = st.secrets.get("GROQ_API_KEY")
+    if api_key:
+        os.environ["GROQ_API_KEY"] = api_key
+    else:
+        # Fallback to environment variable
+        api_key = os.environ.get("GROQ_API_KEY")
+except (AttributeError, FileNotFoundError):
+    # If no secrets.toml, use environment variable
+    api_key = os.environ.get("GROQ_API_KEY")
 
-# Set Groq API key from .env
-os.environ["GROQ_API_KEY"] = os.getenv("GROQ_API_KEY")
-st.write("✅ API key loaded:", bool(os.getenv("GROQ_API_KEY")))
+st.write("✅ API key loaded:", bool(api_key))
 
 # ---------------------------
 # LangChain / Community imports
