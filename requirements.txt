@@ -2,6 +2,12 @@ streamlit
 langchain
 langchain-community
 langchain-groq
+langchain-core
+langchain-openai
+unstructured[pdf]
 faiss-cpu
 sentence-transformers
-unstructured[pdf]
+torch
+transformers
+openai
+pypdf
